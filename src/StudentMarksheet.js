@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Application from './App';
 import './App.css';
-
+import SearchBox from './Search.js';
 class StudentMarksheet extends React.Component {
 render() {
 
@@ -10,6 +9,7 @@ var studentDetails = getStudentsDetails();
 var rows = getRows(studentDetails)
   return (
     <div className="rows">
+        <SearchBox />
         <table id="marskSheet">
          <tbody>
             <tr>
