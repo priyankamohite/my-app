@@ -12,7 +12,7 @@ class Categories extends React.Component{
 
     var checkboxes = [];
     for (var i = 0; i < categories.categories.length; i++) {
-      checkboxes.push(<Checkbox label={categories.categories[i][i+1]}/>)
+      checkboxes.push(<Checkbox key={i} label={categories.categories[i][i+1]}/>)
     }
     return checkboxes;
   }

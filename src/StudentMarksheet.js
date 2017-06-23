@@ -4,11 +4,14 @@ import './App.css';
 import SearchBox from './Search.js';
 class StudentMarksheet extends React.Component {
 
-displayResult(){
-  console.log('in function');
-}
+constructor(props) {
+    super(props);
+    this.state = {
+      studentData: []
+    };
+  }
 
-getRows(studentDetails){
+displayResult(studentDetails){
 
   let rows = [];
   let total = [];
@@ -25,21 +28,24 @@ getRows(studentDetails){
       font[i] = "red";
   }
 
-  rows.push(<tr style={{color: font[i] }}>
+  rows.push(<tr key={i} style={{color: font[i] }}>
       <td>{studentDetails.results[i].firstName}</td>
       <td>{studentDetails.results[i].lastName}</td>
       <td>{percentage[i]}</td>
       </tr>)
     }
-    return rows;
+    this.setState({studentData : rows});
+}
+
+componentWillMount(){
+  var studentDetails = StudentsDetails;
+  this.displayResult(studentDetails);
 }
 
 render() {
-  var studentDetails = StudentsDetails;
-  var rows = this.getRows(studentDetails)
-    return (
+     return (
      <div className="rows">
-        <SearchBox  displayResult={this.displayResult} />
+        <SearchBox  displayResult={this.displayResult.bind(this)} />
         <table id="marskSheet">
          <tbody>
             <tr>
@@ -47,7 +53,7 @@ render() {
               <td>Last Name</td>
               <td>Percentage</td>
           </tr>
-              {rows}
+              {this.state.studentData}
          </tbody>
          </table>
         </div>
