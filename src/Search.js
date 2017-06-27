@@ -1,5 +1,4 @@
 import React from 'react';
-import Categories from './Categories.js'
 import StudentsDetails from './StudentsDetails.js';
 
 class SearchBox extends React.Component{
@@ -13,7 +12,7 @@ class SearchBox extends React.Component{
       for (var i = 0; i< studentDetails.results.length; i++) {
           fname = studentDetails.results[i].firstName.toLowerCase();
           lname = studentDetails.results[i].lastName.toLowerCase();
-          if(fname.indexOf(key) != -1 || lname.indexOf(key) != -1){
+          if(fname.indexOf(key) !== -1 || lname.indexOf(key) !== -1){
               match.push(studentDetails.results[i]);
           }
       }
@@ -29,7 +28,6 @@ class SearchBox extends React.Component{
           <button onClick = {this.searchStudent.bind(this)}>
             Search
           </button>
-          <Categories />
         </form>
       );
   }
