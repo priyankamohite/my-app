@@ -9,14 +9,14 @@ class SearchBox extends React.Component{
         var match = [];
         var fname = '';
         var lname = '';
-            for (let i = 0; i< studentDetails.results.length; i++) {
-                fname = studentDetails.results[i].firstName.toLowerCase();
-                lname = studentDetails.results[i].lastName.toLowerCase();
-                    if(fname.indexOf(key) !== -1 || lname.indexOf(key) !== -1){
-                      match.push(studentDetails.results[i]);
-                    }
-            }
 
+        studentDetails.results.forEach((object,i)=>{
+            fname = object.firstName.toLowerCase();
+            lname = object.lastName.toLowerCase();
+                if(fname.indexOf(key) !== -1 || lname.indexOf(key) !== -1){
+                    match.push(object);
+                }
+        });
         var matchRecords = {results:match};
         this.props.displayResult(matchRecords)
     }

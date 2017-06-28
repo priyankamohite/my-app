@@ -37,7 +37,7 @@ class StudentMarksheet extends React.Component {
             rows.push(
                 <tr key = {i} style = {{color: font[i] }}>
                     <td>{studentDetails.results[i].firstName}</td>
-                    <td onClick = {this.handleClick.bind(studentDetails.results[i])}>{studentDetails.results[i].lastName}</td>
+                    {/*<td onClick = {this.handleClick.bind(studentDetails.results[i])}>{studentDetails.results[i].lastName}</td>*/}
                     <td>{percentage[i]}</td>
                 </tr>
             )
@@ -53,12 +53,10 @@ class StudentMarksheet extends React.Component {
 
     getCheckboxes(categories) {
         var checkboxes = [];
-
-        for (let i = 0; i < categories.categories.length; i++) {
-            checkboxes.push(<Checkbox selectedCheckbox={this.selectedCheckbox.bind(this)} key = {i}
-            label={categories.categories[i][i+1]}/>)
-        }
-
+            categories.forEach((object,key)=>{
+                checkboxes.push(<Checkbox selectedCheckbox = {this.selectedCheckbox.bind(this)}
+                    key = {key} label = {object} />)
+            });
         return checkboxes;
     }
 
@@ -85,14 +83,12 @@ class StudentMarksheet extends React.Component {
     studentsFilterData(filteredData,lowerLimit,UpperLimit) {
         var studentsDetails = StudentsDetails;
         var percentage = 0;
-
-        for (let i = 0; i < studentsDetails.results.length; i++) {
-            percentage = this.getPercentage(studentsDetails.results[i]);
-            if(per centage > lowerLimit && percentage < UpperLimit ){
-                filteredData.push(studentsDetails.results[i]);
-            }
-        }
-
+        studentsDetails.results.forEach((object,key)=>{
+            percentage = this.getPercentage(object);
+                if(percentage > lowerLimit && percentage < UpperLimit ){
+                    filteredData.push(object);
+                }
+        });
         return filteredData
     }
 
