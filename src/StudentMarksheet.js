@@ -4,7 +4,6 @@ import './App.css';
 import SearchBox from './Search.js';
 import Checkbox from './Checkbox.js';
 import Filters from './Filters';
-import test from './test';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 
@@ -13,45 +12,31 @@ class StudentMarksheet extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            studentData: []
+            studentData : StudentsDetails.results,
+            filteredData : StudentsDetails.results
         };
     }
 
-    displayResult(studentDetails) {
+    displayResult() {
         var rows = [];
-        var total = [];
         var percentage = [];
         var font = [];
 
-        for (let i = 0; i < studentDetails.results.length; i++) {
-            total[i] = studentDetails.results[i].marks.english +
-            studentDetails.results[i].marks.hindi +
-            studentDetails.results[i].marks.mathematics;
-
-            percentage[i] = (total[i]/3) . toFixed(2);
-
-            if(percentage[i] < 35){
-                font[i] = "red";
-            }
+        this.state.filteredData.forEach((object,i)=>{
+            percentage = this.getPercentage(object);
+            font = percentage < 35 ? "red" : "";
 
             rows.push(
-                <tr key = {i} style = {{color: font[i] }}>
-                    <td>{studentDetails.results[i].firstName}</td>
-                    {/*<td onClick = {this.handleClick.bind(studentDetails.results[i])}>{studentDetails.results[i].lastName}</td>*/}
-                    <td>{percentage[i]}</td>
-                </tr>
-            )
-        }
-
-        this.setState({studentData : rows});
+                <tr key = {i} style = {{color: font }}>
+                  <td>{object.firstName}</td>
+                  <td>{object.lastName}</td>
+                  <td>{percentage}</td>
+                </tr>)
+            });
+        return rows;
     }
 
-    componentWillMount() {
-        var studentDetails = StudentsDetails;
-        this.displayResult(studentDetails);
-    }
-
-    getCheckboxes(categories) {
+     getCheckboxes(categories) {
         var checkboxes = [];
             categories.forEach((object,key)=>{
                 checkboxes.push(<Checkbox selectedCheckbox = {this.selectedCheckbox.bind(this)}
@@ -61,41 +46,44 @@ class StudentMarksheet extends React.Component {
     }
 
     selectedCheckbox(filter) {
-        var filteredData = [];
+
+        var lowerLimit = 0;
+        var UpperLimit = 100;
+
         if(filter === 'Distinction') {
-            filteredData = this.studentsFilterData(filteredData,60,100);
+            lowerLimit = 60;
+            UpperLimit = 100;
         }
         if(filter === 'First Class') {
-            filteredData = this.studentsFilterData(filteredData,50,60);
+            lowerLimit = 50;
+            UpperLimit = 60;
         }
         if(filter === 'Second Class') {
-            filteredData = this.studentsFilterData(filteredData,35,50);
+            lowerLimit = 35;
+            UpperLimit = 50;
         }
         if(filter === 'Fail'){
-            filteredData = this.studentsFilterData(filteredData,0,35);
+            lowerLimit = 0;
+            UpperLimit = 35;
         }
-        var filteredStudentsData = {
-            results:filteredData
-        };
-        this.displayResult(filteredStudentsData);
-    }
 
-    studentsFilterData(filteredData,lowerLimit,UpperLimit) {
-        var studentsDetails = StudentsDetails;
-        var percentage = 0;
-        studentsDetails.results.forEach((object,key)=>{
-            percentage = this.getPercentage(object);
-                if(percentage > lowerLimit && percentage < UpperLimit ){
-                    filteredData.push(object);
-                }
+        debugger
+        this.state.filteredData = this.state.studentData.filter((student)=>{
+            var percentage = this.getPercentage(student);
+            return percentage > lowerLimit && percentage < UpperLimit
         });
-        return filteredData
+
+        this.setState(this.state);
     }
 
     getPercentage(studentDetails){
         var total = studentDetails.marks.english + studentDetails.marks.hindi + studentDetails.marks.mathematics;
-
         return (total/3).toFixed(2);
+    }
+
+    showSearchedResult(matchRecords){
+        this.state.filteredData = matchRecords;
+        this.setState(this.state);
     }
 
     render() {
@@ -103,7 +91,7 @@ class StudentMarksheet extends React.Component {
         var filters = this.getCheckboxes(categories);
         return (
             <div className ="rows">
-                <SearchBox  displayResult = {this.displayResult.bind(this)} />
+                <SearchBox  showSearchedResult = {this.showSearchedResult.bind(this)} />
                 <div>
                     {filters}
                 </div>
@@ -114,7 +102,7 @@ class StudentMarksheet extends React.Component {
                             <td>Last Name</td>
                             <td>Percentage</td>
                         </tr>
-                        {this.state.studentData}
+                        {this.displayResult()}
                     </tbody>
                   </table>
             </div>

@@ -6,19 +6,19 @@ class SearchBox extends React.Component{
         e.preventDefault();
         var key = this.refs.search.value;
         var studentDetails = StudentsDetails;
-        var match = [];
+        var matchRecords = [];
         var fname = '';
         var lname = '';
 
         studentDetails.results.forEach((object,i)=>{
+            debugger
             fname = object.firstName.toLowerCase();
             lname = object.lastName.toLowerCase();
                 if(fname.indexOf(key) !== -1 || lname.indexOf(key) !== -1){
-                    match.push(object);
+                    matchRecords.push(object);
                 }
         });
-        var matchRecords = {results:match};
-        this.props.displayResult(matchRecords)
+        this.props.showSearchedResult(matchRecords)
     }
 
     render(){

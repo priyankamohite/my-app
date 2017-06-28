@@ -1,12 +1,6 @@
 import React from 'react';
 
 class Checkbox extends React.Component{
-
-    constructor(props) {
-        super(props);
-        this.props = { label : '' };
-    }
-
     handleChange(){
         this.props.selectedCheckbox(this.props.label)
     }
@@ -21,4 +15,5 @@ class Checkbox extends React.Component{
     }
 }
 
+Checkbox.defaultProps = { label : '' };
 export default Checkbox;
