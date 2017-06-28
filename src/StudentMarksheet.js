@@ -69,26 +69,26 @@ class StudentMarksheet extends React.Component {
     var filteredData = [];
 
     if(filter === 'Distinction'){
-      filteredData = this.StudentsFilterData(filteredData,60,100);
+      filteredData = this.studentsFilterData(filteredData,60,100);
     }
 
     if(filter === 'First Class'){
-      filteredData = this.StudentsFilterData(filteredData,50,60);
+      filteredData = this.studentsFilterData(filteredData,50,60);
     }
 
     if(filter === 'Second Class'){
-      filteredData = this.StudentsFilterData(filteredData,35,50);
+      filteredData = this.studentsFilterData(filteredData,35,50);
     }
 
     if(filter === 'Fail'){
-      filteredData = this.StudentsFilterData(filteredData,0,35);
+      filteredData = this.studentsFilterData(filteredData,0,35);
     }
 
     var filteredStudentsData = {results:filteredData};
     this.displayResult(filteredStudentsData);
   }
 
-  StudentsFilterData(filteredData,lowerLimit,UpperLimit){
+  studentsFilterData(filteredData,lowerLimit,UpperLimit){
 
     var studentsDetails = StudentsDetails;
     var percentage = 0;
