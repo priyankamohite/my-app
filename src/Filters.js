@@ -1,3 +1,3 @@
-
-var Filters = ({categories: [{1:'Distinction'},{2:'First Class'},{3:'Second Class'},{4:'Fail'}]});
+var Filters = ({categories: [{'distinction':'Distinction'},{'first_class':'First Class'},
+    {'second_class':'Second Class'},{'fail':'Fail'}]});
 export default Filters;
