@@ -8,12 +8,11 @@ class Checkbox extends React.Component{
 
   render(){
     return (
-        <p>
-          <input type="checkbox"  onChange = {this.handleChange.bind(this)}/>
-          {this.props.label}
-        </p>
+      <p><input type="checkbox"  onChange = {this.handleChange.bind(this)}/>
+        {this.props.label}
+      </p>
         );
-  }
-}
+      }
+    }
 
 export default Checkbox;

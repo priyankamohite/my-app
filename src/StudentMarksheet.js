@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 class StudentMarksheet extends React.Component {
 
-constructor(props) {
+  constructor(props) {
     super(props);
     this.state = {
       studentData: []
@@ -19,120 +19,120 @@ constructor(props) {
 
   handleClick(event) {
     event.preventDefault();
-   <Route component={test} path='/test' />
+    <Route component={test} path='/test' />
   }
 
-displayResult(studentDetails){
+  displayResult(studentDetails){
 
-  let rows = [];
-  let total = [];
-  let percentage = [];
-  var font = [];
+    let rows = [];
+    let total = [];
+    let percentage = [];
+    var font = [];
 
-  for (var i = 0; i< studentDetails.results.length; i++) {
-    total[i] = studentDetails.results[i].marks.english +
+    for (var i = 0; i< studentDetails.results.length; i++) {
+      total[i] = studentDetails.results[i].marks.english +
               studentDetails.results[i].marks.hindi +
               studentDetails.results[i].marks.mathematics
 
-  percentage[i] = (total[i]/3).toFixed(2);
-  if(percentage[i] < 35){
+    percentage[i] = (total[i]/3).toFixed(2);
+    if(percentage[i] < 35){
       font[i] = "red";
-  }
+    }
 
-  rows.push(<tr key={i} style={{color: font[i] }}>
+    rows.push(<tr key={i} style={{color: font[i] }}>
       <td>{studentDetails.results[i].firstName}</td>
       <td onClick={this.handleClick.bind(studentDetails.results[i])}>{studentDetails.results[i].lastName}</td>
       <td>{percentage[i]}</td>
       </tr>)
     }
+
     this.setState({studentData : rows});
-}
+  }
 
-componentWillMount(){
-  var studentDetails = StudentsDetails;
-  this.displayResult(studentDetails);
-}
+  componentWillMount(){
+    var studentDetails = StudentsDetails;
+    this.displayResult(studentDetails);
+  }
 
-getFilters(categories){
+  getFilters(categories){
 
     var checkboxes = [];
     for (var i = 0; i < categories.categories.length; i++) {
       checkboxes.push(<Checkbox selectedCheckbox={this.selectedCheckbox.bind(this)} key={i}
-        label={categories.categories[i][i+1]}/>)
+      label={categories.categories[i][i+1]}/>)
     }
     return checkboxes;
-}
-
-selectedCheckbox(filter){
-
-  var filteredData = [];
-
-  if(filter === 'Distinction'){
-    filteredData = this.StudentsFilterData(filteredData,60,100);
   }
 
-  if(filter === 'First Class'){
-    filteredData = this.StudentsFilterData(filteredData,50,60);
+  selectedCheckbox(filter){
+
+    var filteredData = [];
+
+    if(filter === 'Distinction'){
+      filteredData = this.StudentsFilterData(filteredData,60,100);
+    }
+
+    if(filter === 'First Class'){
+      filteredData = this.StudentsFilterData(filteredData,50,60);
+    }
+
+    if(filter === 'Second Class'){
+      filteredData = this.StudentsFilterData(filteredData,35,50);
+    }
+
+    if(filter === 'Fail'){
+      filteredData = this.StudentsFilterData(filteredData,0,35);
+    }
+
+    var filteredStudentsData = {results:filteredData};
+    this.displayResult(filteredStudentsData);
   }
 
-  if(filter === 'Second Class'){
-    filteredData = this.StudentsFilterData(filteredData,35,50);
-  }
-
-  if(filter === 'Fail'){
-    filteredData = this.StudentsFilterData(filteredData,0,35);
-  }
-
-  var filteredStudentsData = {results:filteredData};
-  this.displayResult(filteredStudentsData);
-}
-
-StudentsFilterData(filteredData,lowerLimit,UpperLimit){
+  StudentsFilterData(filteredData,lowerLimit,UpperLimit){
 
     var studentsDetails = StudentsDetails;
     var percentage = 0;
 
-      for (var i = 0; i< studentsDetails.results.length; i++) {
+    for (var i = 0; i< studentsDetails.results.length; i++) {
       percentage = this.getPercentage(studentsDetails.results[i]);
       if(percentage > lowerLimit && percentage < UpperLimit ){
-          filteredData.push(studentsDetails.results[i]);
+        filteredData.push(studentsDetails.results[i]);
       }
     }
-
     return filteredData
   }
 
-getPercentage(studentDetails){
-       var total = studentDetails.marks.english +
+  getPercentage(studentDetails){
+    var total = studentDetails.marks.english +
                   studentDetails.marks.hindi +
                   studentDetails.marks.mathematics
 
-      return (total/3).toFixed(2);
+    return (total/3).toFixed(2);
   }
 
-render() {
+  render() {
 
-     var categories = Filters;
-     var filters = this.getFilters(categories);
-     return (
-     <div className="rows">
-        <SearchBox  displayResult={this.displayResult.bind(this)} />
-        <div>
-          {filters}
-        </div>
-        <table id="marskSheet">
-         <tbody>
-            <tr>
-              <td>First Name</td>
-              <td>Last Name</td>
-              <td>Percentage</td>
-          </tr>
+    var categories = Filters;
+    var filters = this.getFilters(categories);
+      return (
+        <div className="rows">
+          <SearchBox  displayResult={this.displayResult.bind(this)} />
+          <div>
+            {filters}
+          </div>
+          <table id="marskSheet">
+            <tbody>
+              <tr>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Percentage</td>
+              </tr>
               {this.state.studentData}
-         </tbody>
-         </table>
+            </tbody>
+          </table>
         </div>
       );
-   }
+  }
 }
 
 export default StudentMarksheet;

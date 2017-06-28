@@ -9,13 +9,13 @@ class SearchBox extends React.Component{
       var match = [];
       var fname = '';
       var lname = '';
-      for (var i = 0; i< studentDetails.results.length; i++) {
+        for (var i = 0; i< studentDetails.results.length; i++) {
           fname = studentDetails.results[i].firstName.toLowerCase();
           lname = studentDetails.results[i].lastName.toLowerCase();
-          if(fname.indexOf(key) !== -1 || lname.indexOf(key) !== -1){
+            if(fname.indexOf(key) !== -1 || lname.indexOf(key) !== -1){
               match.push(studentDetails.results[i]);
-          }
-      }
+            }
+        }
 
       var matchRecords = {results:match};
       this.props.displayResult(matchRecords)
@@ -23,13 +23,13 @@ class SearchBox extends React.Component{
 
   render(){
     return (
-       <form>
-          <input type = "text" name ='key' ref = "search" placeholder = "Search..." />
-          <button onClick = {this.searchStudent.bind(this)}>
-            Search
-          </button>
-        </form>
-      );
+      <form>
+        <input type = "text" name ='key' ref = "search" placeholder = "Search..." />
+        <button onClick = {this.searchStudent.bind(this)}>
+          Search
+        </button>
+      </form>
+    );
   }
 }
 
