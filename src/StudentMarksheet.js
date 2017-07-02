@@ -47,32 +47,37 @@ class StudentMarksheet extends React.Component {
 
     selectedCheckbox(filter) {
 
+        var index = this.filtersArray.indexOf(filter);
+        if (index > -1) {
+           this.filtersArray.splice(index, 1);
+        }else{
+            this.filtersArray.push(filter);
+        }
+
+
         var lowerLimit = 0;
-        var UpperLimit = 100;
+        var upperLimit = 100;
 
-        if(filter === 'Distinction') {
-            lowerLimit = 60;
-            UpperLimit = 100;
-        }
-        if(filter === 'First Class') {
-            lowerLimit = 50;
-            UpperLimit = 60;
-        }
-        if(filter === 'Second Class') {
-            lowerLimit = 35;
-            UpperLimit = 50;
-        }
-        if(filter === 'Fail'){
-            lowerLimit = 0;
-            UpperLimit = 35;
+        var categoriesArray = {'Distinction':{'lowerLimit':60,'upperLimit':100},
+                               'First Class':{'lowerLimit':50,'upperLimit':60},
+                               'Second Class':{'lowerLimit': 35,'upperLimit': 50},
+                               'Fail':{'lowerLimit': 0,'upperLimit': 35}
+                              };
+
+        for (var key in categoriesArray){
+            if(key === filter && this.filtersArray.indexOf(filter) > -1){
+                lowerLimit = categoriesArray[key].lowerLimit;
+                upperLimit = categoriesArray[key].upperLimit;
+            }
         }
 
-        debugger
         this.state.filteredData = this.state.studentData.filter((student)=>{
             var percentage = this.getPercentage(student);
-            return percentage > lowerLimit && percentage < UpperLimit
+            return percentage > lowerLimit && percentage < upperLimit
         });
 
+        this.finalResult.push(this.state.filteredData);
+        this.state.filteredData = this.finalResult;
         this.setState(this.state);
     }
 
@@ -84,6 +89,11 @@ class StudentMarksheet extends React.Component {
     showSearchedResult(matchRecords){
         this.state.filteredData = matchRecords;
         this.setState(this.state);
+    }
+
+    componentWillMount() {
+        this.filtersArray = [];
+        this.finalResult = [];
     }
 
     render() {

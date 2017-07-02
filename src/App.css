@@ -22,3 +22,12 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+#studentData{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+th, td {
+  border-bottom: 1px solid #ddd;
+}
