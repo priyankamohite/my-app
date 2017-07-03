@@ -100,6 +100,10 @@ class StudentMarksheet extends React.Component {
             this.state.filteredData = this.finalResult;
             this.setState(this.state);
         }
+
+        if(this.finalResult.length == 0){
+            this.state.filteredData = this.state.studentData;
+        }
     }
 
     getPercentage(studentDetails){
