@@ -70,6 +70,8 @@ class StudentMarksheet extends React.Component {
                 }
             });
         }
+           this.state.filteredData = this.finalResult;
+           this.setState(this.state);
            this.filtersArray.splice(index, 1);
         }else{
             this.filtersArray.push(filter);
