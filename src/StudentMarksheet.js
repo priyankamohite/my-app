@@ -77,7 +77,6 @@ class StudentMarksheet extends React.Component {
         });
 
         this.finalResult.push(this.state.filteredData);
-        this.state.filteredData = this.finalResult;
         this.setState(this.state);
     }
 
