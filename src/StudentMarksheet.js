@@ -47,22 +47,36 @@ class StudentMarksheet extends React.Component {
 
     selectedCheckbox(filter) {
 
+         var categoriesArray = {'Distinction':{'lowerLimit':60,'upperLimit':100},
+                               'First Class':{'lowerLimit':50,'upperLimit':60},
+                               'Second Class':{'lowerLimit': 35,'upperLimit': 50},
+                               'Fail':{'lowerLimit': 0,'upperLimit': 35}
+                              };
+
+        this.state.filteredData = [];
+
         var index = this.filtersArray.indexOf(filter);
         if (index > -1) {
+           for (var key in categoriesArray){
+            if(key === filter && this.filtersArray.indexOf(filter) > -1){
+                lowerLimit = categoriesArray[key].lowerLimit;
+                upperLimit = categoriesArray[key].upperLimit;
+            }
+
+            this.finalResult.forEach((student,i)=>{
+                var percentage = this.getPercentage(student);
+                    if(percentage > lowerLimit && percentage < upperLimit){
+                    this.finalResult.splice(i, 1);
+                }
+            });
+        }
            this.filtersArray.splice(index, 1);
         }else{
             this.filtersArray.push(filter);
         }
 
-
         var lowerLimit = 0;
-        var upperLimit = 100;
-
-        var categoriesArray = {'Distinction':{'lowerLimit':60,'upperLimit':100},
-                               'First Class':{'lowerLimit':50,'upperLimit':60},
-                               'Second Class':{'lowerLimit': 35,'upperLimit': 50},
-                               'Fail':{'lowerLimit': 0,'upperLimit': 35}
-                              };
+        var upperLimit = 0;
 
         for (var key in categoriesArray){
             if(key === filter && this.filtersArray.indexOf(filter) > -1){
@@ -71,13 +85,19 @@ class StudentMarksheet extends React.Component {
             }
         }
 
-        this.state.filteredData = this.state.studentData.filter((student)=>{
-            var percentage = this.getPercentage(student);
-            return percentage > lowerLimit && percentage < upperLimit
-        });
+        if(lowerLimit !== upperLimit){
+            this.state.filteredData = this.state.studentData.filter((student)=>{
+                var percentage = this.getPercentage(student);
+                return percentage > lowerLimit && percentage < upperLimit
+            });
 
-        this.finalResult.push(this.state.filteredData);
-        this.setState(this.state);
+            this.state.filteredData.forEach((object,i)=>{
+                this.finalResult.push(object);
+            });
+
+            this.state.filteredData = this.finalResult;
+            this.setState(this.state);
+        }
     }
 
     getPercentage(studentDetails){
