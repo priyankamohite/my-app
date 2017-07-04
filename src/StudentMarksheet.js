@@ -56,12 +56,10 @@ class StudentMarksheet extends React.Component {
                               };
 
         this.state.filteredData = [];
-        var lowerLimit = 0;
-        var upperLimit = 0;
 
         var index = this.filtersArray.indexOf(filter);
         if (index > -1) {
-           for (var key in categoriesArray){
+           for (let key in categoriesArray){
             if(key === filter && this.filtersArray.indexOf(filter) > -1){
                 lowerLimit = categoriesArray[key].lowerLimit;
                 upperLimit = categoriesArray[key].upperLimit;
@@ -81,7 +79,10 @@ class StudentMarksheet extends React.Component {
             this.filtersArray.push(filter);
         }
 
-        for (var key in categoriesArray){
+        var lowerLimit = 0;
+        var upperLimit = 0;
+
+        for (let key in categoriesArray){
             if(key === filter && this.filtersArray.indexOf(filter) > -1){
                 lowerLimit = categoriesArray[key].lowerLimit;
                 upperLimit = categoriesArray[key].upperLimit;
@@ -102,7 +103,7 @@ class StudentMarksheet extends React.Component {
             this.setState(this.state);
         }
 
-        if(this.finalResult.length === 0){
+        if(this.finalResult.length == 0){
             this.state.filteredData = this.state.studentData;
         }
     }
