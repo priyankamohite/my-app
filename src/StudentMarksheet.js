@@ -16,7 +16,7 @@ class StudentMarksheet extends React.Component {
     }
 
     redirectTo(){
-        window.location.hash = 'test';
+        window.location.hash = 'student';
     }
 
     displayResult() {

@@ -1,7 +1,16 @@
-import test from './test.js';
+import React from 'react';
+import Student from './Student.js';
+import Application from './App';
+import {HashRouter,Route} from 'react-router-dom';
 
-export default (
-    <Route component={Application} path='/'>
-      <Route component={test} path='/test' />
-    </Route>
-);
+var route = (
+  <HashRouter>
+      <div>
+        <Route exact = {true} component={Application} path='/' />
+        <Route component={Student} path='/Student' />
+      </div>
+   </HashRouter>
+  );
+
+export default route;
+
