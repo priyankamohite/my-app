@@ -4,8 +4,6 @@ import './App.css';
 import SearchBox from './Search.js';
 import Checkbox from './Checkbox.js';
 import Filters from './Filters';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-
 
 class StudentMarksheet extends React.Component {
 
@@ -15,6 +13,10 @@ class StudentMarksheet extends React.Component {
             studentData : StudentsDetails.results,
             filteredData : StudentsDetails.results
         };
+    }
+
+    redirectTo(){
+        window.location.hash = 'test';
     }
 
     displayResult() {
@@ -28,7 +30,7 @@ class StudentMarksheet extends React.Component {
 
             rows.push(
                 <tr key = {i} style = {{color: font }}>
-                  <td>{object.firstName}</td>
+                  <td onClick = {this.redirectTo} >{object.firstName}</td>
                   <td>{object.lastName}</td>
                   <td>{percentage}</td>
                 </tr>)
@@ -54,6 +56,8 @@ class StudentMarksheet extends React.Component {
                               };
 
         this.state.filteredData = [];
+        var lowerLimit = 0;
+        var upperLimit = 0;
 
         var index = this.filtersArray.indexOf(filter);
         if (index > -1) {
@@ -77,9 +81,6 @@ class StudentMarksheet extends React.Component {
             this.filtersArray.push(filter);
         }
 
-        var lowerLimit = 0;
-        var upperLimit = 0;
-
         for (var key in categoriesArray){
             if(key === filter && this.filtersArray.indexOf(filter) > -1){
                 lowerLimit = categoriesArray[key].lowerLimit;
@@ -101,7 +102,7 @@ class StudentMarksheet extends React.Component {
             this.setState(this.state);
         }
 
-        if(this.finalResult.length == 0){
+        if(this.finalResult.length === 0){
             this.state.filteredData = this.state.studentData;
         }
     }
