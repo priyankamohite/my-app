@@ -4,6 +4,7 @@ import './App.css';
 import SearchBox from './Search.js';
 import Checkbox from './Checkbox.js';
 import Filters from './Filters';
+import Categories from './Categories.js'
 
 class StudentMarksheet extends React.Component {
 
@@ -49,14 +50,8 @@ class StudentMarksheet extends React.Component {
 
     selectedCheckbox(filter) {
 
-         var categoriesArray = {'Distinction':{'lowerLimit':60,'upperLimit':100},
-                               'First Class':{'lowerLimit':50,'upperLimit':60},
-                               'Second Class':{'lowerLimit': 35,'upperLimit': 50},
-                               'Fail':{'lowerLimit': 0,'upperLimit': 35}
-                              };
-
         this.state.filteredData = [];
-
+         var categoriesArray = Categories;
         var index = this.filtersArray.indexOf(filter);
         if (index > -1) {
            for (let key in categoriesArray){

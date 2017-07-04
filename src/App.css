@@ -42,3 +42,7 @@ input[type=checkbox], input[type=radio] {
 .table {
   margin-top: 150px
 }
+
+.header{
+  margin-top: 50px;
+}

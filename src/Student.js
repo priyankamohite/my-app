@@ -49,13 +49,13 @@ class Student extends React.Component{
 
     render(){
     return (
-      <div>
-        <span>
+      <div className="container">
+        <div className="text-center header">
           <a href="#"> click here to go back </a>
-        </span>
-        <span>
+          <span>
           {this.displayName()}
-        </span>
+          </span>
+        </div>
         <table id = "marskSheet" className="table table-hover">
           <tbody>
             <tr>
