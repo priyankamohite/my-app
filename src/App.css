@@ -1,3 +1,5 @@
+@import 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
+
 .App {
   text-align: center;
 }
@@ -28,6 +30,15 @@
   margin-right: auto;
 }
 
-th, td {
-  border-bottom: 1px solid #ddd;
+input[type=checkbox], input[type=radio] {
+  margin: 5px 10px;
+}
+
+.searchForm {
+  width: 230px;
+  margin: 50px auto;
+}
+
+.table {
+  margin-top: 150px
 }

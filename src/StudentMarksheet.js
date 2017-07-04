@@ -15,8 +15,8 @@ class StudentMarksheet extends React.Component {
         };
     }
 
-    redirectTo(){
-        window.location.hash = 'student';
+    redirectTo(id){
+        window.location.hash = 'student?index='+id;
     }
 
     displayResult() {
@@ -30,7 +30,7 @@ class StudentMarksheet extends React.Component {
 
             rows.push(
                 <tr key = {i} style = {{color: font }}>
-                  <td onClick = {this.redirectTo} >{object.firstName}</td>
+                  <td onClick = {this.redirectTo.bind(null,object.id)} >{object.firstName}</td>
                   <td>{object.lastName}</td>
                   <td>{percentage}</td>
                 </tr>)
@@ -41,8 +41,8 @@ class StudentMarksheet extends React.Component {
      getCheckboxes(categories) {
         var checkboxes = [];
             categories.forEach((object,key)=>{
-                checkboxes.push(<Checkbox selectedCheckbox = {this.selectedCheckbox.bind(this)}
-                    key = {key} label = {object} />)
+                checkboxes.push(<div className='col-md-4 col-md-offset-2'><Checkbox selectedCheckbox = {this.selectedCheckbox.bind(this)}
+                    key = {key} label = {object} /></div>)
             });
         return checkboxes;
     }
@@ -132,12 +132,12 @@ class StudentMarksheet extends React.Component {
                 <div>
                     {filters}
                 </div>
-                    <table id = "marskSheet">
+                    <table id="marskSheet" className="table table-hover">
                     <tbody>
                         <tr>
-                            <td>First Name</td>
-                            <td>Last Name</td>
-                            <td>Percentage</td>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Percentage</th>
                         </tr>
                         {this.displayResult()}
                     </tbody>

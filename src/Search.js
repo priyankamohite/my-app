@@ -23,7 +23,7 @@ class SearchBox extends React.Component{
 
     render(){
         return (
-          <form>
+          <form className="searchForm">
             <input type = "text" name ='key' ref = "search" placeholder = "Search..." />
             <button onClick = {this.searchStudent.bind(this)}>
               Search
